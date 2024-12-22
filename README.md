@@ -1,102 +1,108 @@
-Aqui está um README revisado, incluindo explicações sobre como usar o **ActivityStarter** nativo do MIT App Inventor com `android.settings.CAST_SETTINGS`:
-
----
-
 # ScreenCast Extension for MIT App Inventor
 
-**ScreenCast** is an extension for **MIT App Inventor** that provides advanced control for screen mirroring, screen recording, and media projection settings on Android devices. It simplifies access to system settings for managing screen casting, while also offering functionality like logging for debugging purposes.
+**ScreenCast** is an extension designed exclusively for screen mirroring and related settings on Android devices. This extension was inspired by a question in the [MIT App Inventor Community](https://community.appinventor.mit.edu/t/hi-i-needed-help-in-screen-cast/120962/3) and simplifies the process of integrating screen casting features into your apps.
+
+With **ScreenCast**, you can:
+- Open the system's screen mirroring settings.
+- Stop active screen mirroring sessions by navigating to the appropriate settings.
+- Enable or disable logging for debugging purposes.
+
+---
 
 ## Features
 
-- **Open Screen Mirroring Settings**: Navigate to the Android screen mirroring settings.
-- **Stop Screen Mirroring**: Provide access to halt screen mirroring from system configurations.
-- **Enable Logging**: Debug your app with real-time logs for events.
-
-## Installation Guide
-
-1. **Download**: Obtain the `ScreenCast.aix` file from the [Releases](#) section.
-2. **Import to MIT App Inventor**:
-   - Go to **Extensions** > **Import Extension** > **Upload File**.
-   - Select and import the `ScreenCast.aix` file.
-3. **Add to Project**:
-   - Drag the `ScreenCast` component from the **Palette** into your app’s workspace.
-
-## How to Use the ScreenCast Extension
-
-### Blocks Overview
-
-1. **SetLogging**
-   - Enables or disables logging.
-
-   ```plaintext
-   SetLogging(enable: Boolean)
-   ```
-   Example:
-   - Pass `true` to enable logs or `false` to disable them.
-
-2. **OpenScreenMirroringSettings**
-   - Opens the screen mirroring settings.
-
-   ```plaintext
-   OpenScreenMirroringSettings()
-   ```
-
-3. **StopScreenMirroring**
-   - Opens settings to stop screen mirroring.
-
-   ```plaintext
-   StopScreenMirroring()
-   ```
-
-### Sample Blocks
-
-Here’s an example of how to use the extension in your project:
-
-1. Add two buttons: **Start Mirroring** and **Stop Mirroring**.
-2. Connect these buttons to the `OpenScreenMirroringSettings` and `StopScreenMirroring` blocks respectively.
-3. Use the `SetLogging` block for debugging during development.
+1. **Open Screen Mirroring Settings**: Directly navigate to Android's screen casting configuration page.
+2. **Stop Screen Mirroring**: Provide access to halt active screen casting sessions.
+3. **Logging**: Activate or deactivate logs to debug your application effectively.
 
 ---
 
-## Using Native ActivityStarter for Android Settings
+## Installation Guide
 
-If you prefer to use the native **ActivityStarter** component instead of the ScreenCast extension, follow these steps:
+### Steps to Add the Extension
 
-1. **Add ActivityStarter**:
-   - Drag the **ActivityStarter** component into your project.
+1. **Download the Extension**: Obtain the `ScreenCast.aix` file from the [Releases](#) section.
+2. **Import into MIT App Inventor**:
+   - Go to **Extensions** > **Import Extension** > **Upload File**.
+   - Select the `ScreenCast.aix` file.
+3. **Add the Component**:
+   - Drag the `ScreenCast` component from the **Palette** into your workspace.
 
-2. **Configure ActivityStarter Properties**:
-   - Set the following properties:
-     - **Action**: `android.settings.CAST_SETTINGS`
-     - **ActivityPackage**: (leave empty)
-     - **ActivityClass**: (leave empty)
+---
 
-3. **Open Cast Settings**:
-   - Use a button or event to call the `StartActivity` block of the `ActivityStarter`.
+## How to Use
 
-### Example Blocks with ActivityStarter
+### Available Blocks
 
-Here’s how to configure and use **ActivityStarter**:
+1. **SetLogging**
+   - Enables or disables logging in the app.
+   - Syntax:
+     ```plaintext
+     SetLogging(enable: Boolean)
+     ```
+     Example: 
+     - Pass `true` to enable logs or `false` to disable them.
 
-- **Button Setup**:
-  - Add a button labeled **"Open Cast Settings"**.
-  - Use the following blocks to configure the button's action:
+2. **OpenScreenMirroringSettings**
+   - Opens the screen mirroring settings on the Android device.
+   - Syntax:
+     ```plaintext
+     OpenScreenMirroringSettings()
+     ```
 
-    ```plaintext
-    When Button1.Click
-        set ActivityStarter1.Action to "android.settings.CAST_SETTINGS"
-        call ActivityStarter1.StartActivity
-    ```
+3. **StopScreenMirroring**
+   - Navigates to the settings page where users can stop screen mirroring.
+   - Syntax:
+     ```plaintext
+     StopScreenMirroring()
+     ```
 
-### Notes
-- The `android.settings.CAST_SETTINGS` action may not work on all devices, depending on the Android version or manufacturer customizations.
-- If `android.settings.CAST_SETTINGS` doesn’t work, try using `android.settings.WIFI_DISPLAY_SETTINGS`.
+### Example Usage in MIT App Inventor
+
+1. Add two buttons:
+   - Label one as **"Start Mirroring"** and another as **"Stop Mirroring"**.
+2. Connect these buttons to the respective blocks:
+   - Use `OpenScreenMirroringSettings` for the start button.
+   - Use `StopScreenMirroring` for the stop button.
+
+Here’s an example block setup:
+
+```plaintext
+When Button1.Click
+    call ScreenCast.OpenScreenMirroringSettings
+
+When Button2.Click
+    call ScreenCast.StopScreenMirroring
+```
+
+---
+
+## Using Native ActivityStarter for Screen Mirroring
+
+If you prefer to use the native **ActivityStarter** component, follow these steps:
+
+1. **Add the ActivityStarter Component**:
+   - Drag it from the **Palette** into your workspace.
+2. **Configure the Properties**:
+   - Set the **Action** to:
+     - `"android.settings.CAST_SETTINGS"` or 
+     - `"android.settings.WIFI_DISPLAY_SETTINGS"` (for older devices).
+3. **Trigger the Action**:
+   - Use a button click to call `ActivityStarter.StartActivity`.
+
+### Example Blocks for ActivityStarter
+
+```plaintext
+When Button1.Click
+    set ActivityStarter1.Action to "android.settings.CAST_SETTINGS"
+    call ActivityStarter1.StartActivity
+```
 
 ---
 
 ## Permissions Required
 
-To ensure full functionality, the following permissions are needed:
+The extension automatically handles required permissions, but for reference, these include:
 
 ```xml
 <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -104,16 +110,20 @@ To ensure full functionality, the following permissions are needed:
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 
-These are automatically handled if you use the extension but need to be considered for custom implementations.
+---
+
+## Screenshots
+
+*(Add screenshots of the blocks or a demo app interface.)*
 
 ---
 
-## Example App Screenshot
+## Community Support
 
-*(Include a screenshot of the blocks or app interface using the ScreenCast extension or ActivityStarter.)*
+This extension is inspired by a question raised in the [MIT App Inventor Community](https://community.appinventor.mit.edu/t/hi-i-needed-help-in-screen-cast/120962/3). If you have additional queries or suggestions, please visit the community or open an issue in this repository.
 
 ---
 
-## Support
+## License
 
-If you encounter any issues or have questions, feel free to open a GitHub issue or contact the [BosonsHiggs Team](mailto:bosonshiggsteam@gmail.com).
+This project is licensed under the [MIT License](LICENSE).
